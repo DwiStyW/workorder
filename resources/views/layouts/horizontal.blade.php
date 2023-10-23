@@ -61,107 +61,6 @@
                 </div>
             </div>
 
-            {{-- <div class="dropdown d-inline-block language-switch">
-                <button type="button" class="btn header-item waves-effect"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @switch(Session::get('lang'))
-                        @case('ru')
-                            <img src="{{ URL::asset('/assets/images/flags/russia.jpg')}}" alt="Header Language" height="16"> <span class="align-middle">Russian</span>
-                        @break
-                        @case('it')
-                            <img src="{{ URL::asset('/assets/images/flags/italy.jpg')}}" alt="Header Language" height="16"> <span class="align-middle">Italian</span>
-                        @break
-                        @case('de')
-                            <img src="{{ URL::asset('/assets/images/flags/germany.jpg')}}" alt="Header Language" height="16"> <span class="align-middle">German</span>
-                        @break
-                        @case('es')
-                            <img src="{{ URL::asset('/assets/images/flags/spain.jpg')}}" alt="Header Language" height="16"> <span class="align-middle">Spanish</span>
-                        @break
-                        @default
-                            <img src="{{ URL::asset('/assets/images/flags/us.jpg')}}" alt="Header Language" height="16"> <span class="align-middle">English</span>
-                    @endswitch
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-
-                    <!-- item-->
-                    <a href="{{ url('index/en') }}" class="dropdown-item notify-item">
-                        <img src="{{ URL::asset('assets/images/flags/us.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="{{ url('index/es') }}" class="dropdown-item notify-item">
-                        <img src="{{ URL::asset('assets/images/flags/spain.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="{{ url('index/de') }}" class="dropdown-item notify-item">
-                        <img src="{{ URL::asset('assets/images/flags/germany.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="{{ url('index/it') }}" class="dropdown-item notify-item">
-                        <img src="{{ URL::asset('assets/images/flags/italy.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="{{ url('index/ru') }}" class="dropdown-item notify-item">
-                        <img src="{{ URL::asset('assets/images/flags/russia.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
-                    </a>
-                </div>
-            </div> --}}
-
-            {{-- <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="uil-apps"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                    <div class="px-lg-2">
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('/assets/images/brands/github.png') }}" alt="Github">
-                                    <span>GitHub</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('/assets/images/brands/bitbucket.png') }}" alt="bitbucket">
-                                    <span>Bitbucket</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('/assets/images/brands/dribbble.png') }}" alt="dribbble">
-                                    <span>Dribbble</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('/assets/images/brands/dropbox.png') }}" alt="dropbox">
-                                    <span>Dropbox</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('/assets/images/brands/mail_chimp.png') }}" alt="mail_chimp">
-                                    <span>Mail Chimp</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ URL::asset('/assets/images/brands/slack.png') }}" alt="slack">
-                                    <span>Slack</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-
             <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
                     <i class="uil-minus-path"></i>
@@ -172,8 +71,14 @@
                 <button type="button" class="btn header-item noti-icon waves-effect"
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <i class="uil-bell"></i>
-                    <span class="badge bg-danger rounded-pill">3</span>
+                    <div id="lonceng">
+                        <i class="uil-bell"></i>
+                    </div>
+                    @if (count($notif) > 0)
+                        <span id="badge-notif" class="badge bg-danger rounded-pill">{{ count($notif) }}</span>
+                    @else
+                        <div id="badge-notif"></div>
+                    @endif
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
@@ -182,71 +87,22 @@
                             <div class="col">
                                 <h5 class="m-0 font-size-16"> @lang('translation.Notifications') </h5>
                             </div>
-                            <div class="col-auto">
+                            <div id="readall" class="col-auto"
+                                @if (count($notif) > 0) style="display: none;" @endif>
                                 <a href="#!" class="small"> @lang('translation.Mark_read')</a>
                             </div>
+
                         </div>
                     </div>
                     <div data-simplebar style="max-height: 230px;">
-                        <a href="" class="text-reset notification-item">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                        <i class="uil-shopping-basket"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <h6 class="mt-0 mb-1">@lang('translation.order_placed')</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1">@lang('translation.languages_grammar')</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> @lang('translation.3_min_ago')</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="text-reset notification-item">
-                            <div class="d-flex align-items-start">
-                                <img src="{{ URL::asset('/assets/images/users/avatar-3.jpg') }}"
-                                    class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                <div class="flex-1">
-                                    <h6 class="mt-0 mb-1">James Lemire</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1">@lang('translation.simplified_English')</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> @lang('translation.1_hours_ago')</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="text-reset notification-item">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title bg-success rounded-circle font-size-16">
-                                        <i class="uil-truck"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <h6 class="mt-0 mb-1">@lang('translation.item_shipped')</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1">@lang('translation.languages_grammar')</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> @lang('translation.3_min_ago')</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        <div id="list-notif">
 
-                        <a href="" class="text-reset notification-item">
-                            <div class="d-flex align-items-start">
-                                <img src="{{ URL::asset('/assets/images/users/avatar-4.jpg') }}"
-                                    class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                <div class="flex-1">
-                                    <h6 class="mt-0 mb-1">Salena Layfield</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1">@lang('translation.friend_occidental')</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> @lang('translation.1_hours_ago')</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        </div>
+                        <div id="tidakadanotif" @if (count($notif) == 0) style="display: block;" @endif>
+                            <h6 class="text-center text-muted p-5">
+                                Tidak ada notifikasi yang tersedia
+                            </h6>
+                        </div>
                     </div>
                     <div class="p-2 border-top d-grid">
                         <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
@@ -290,13 +146,288 @@
                 </div>
             </div>
 
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
-                    <i class="uil-cog"></i>
-                </button>
-            </div>
-
+            <div id="theme"></div>
         </div>
     </div>
-    @include('menu.menu-admin')
+    @include('menu.menu-top')
 </header>
+<style>
+    .rotateable {
+        transition: all 100ms;
+    }
+</style>
+@section('script-bottom')
+    <script>
+        Notification.requestPermission((result) => {
+            console.log(result);
+        });
+    </script>
+    <script type="module">
+        const notif = @json($notif),
+            jumlah_notif = notif.length;
+        const auth_id = {{ Auth::user()->id }};
+        //
+        // createListNotif(notif);
+
+        Echo.private(`notification.${auth_id}`)
+            .listen('NotificationSent', (e) => {
+                notif.push({
+                    id: e.notification.id,
+                    sender_id: e.notification.sender_id,
+                    receiver_id: e.notification.receiver_id,
+                    type: e.notification.type,
+                    data: e.notification.data,
+                    read_at: e.notification.read_at,
+                    created_at: e.notification.created_at,
+                    updated_at: e.notification.updated_at,
+                })
+                if (jumlah_notif == 0) {
+                    var str = '<span id="badge-notif" class="badge bg-danger rounded-pill">' + notif.length + '</span>';
+                    document.getElementById('badge-notif').innerHTML = str;
+                } else {
+                    document.getElementById('badge-notif').innerHTML = notif.length;
+                }
+
+                const data = JSON.parse(e.notification.data);
+
+
+                let title = e.notification.type || "Title";
+                let body = data.text || "Text";
+                let icon = "http://192.168.20.28:8000/assets/images/logo/iconkotak.png";
+                let image = "";
+
+                createNotification({
+                    title,
+                    body,
+                    icon,
+                    image,
+                    silent: true,
+                    dir: "auto",
+                })
+
+                var mp3 = "http://192.168.20.28:8000/assets/mp3/notif_wo.mp3";
+                playSound(mp3);
+                createListNotif(notif);
+                var el = document.getElementById('lonceng');
+                var readall = document.getElementById('readall');
+                rotateElement(el);
+                readall.style.display = 'block';
+            });
+
+        var nullnotif = document.getElementById('tidakadanotif');
+
+        function notifnull() {
+            nullnotif.style.display = 'block'
+        }
+        //reload function every 1 second
+        window.onload = function() {
+            createListNotif(notif);
+            setInterval(function() {
+                createListNotif(notif);
+            }, 10000);
+
+            var el = document.getElementById('lonceng');
+            var readall = document.getElementById('readall');
+            console.log(nullnotif);
+            if (jumlah_notif != 0) {
+                rotateElement(el);
+                setInterval(function() {
+                    rotateElement(el);
+                }, 20000);
+                readall.style.display = 'block';
+                nullnotif.style.display = 'none';
+            } else {
+                readall.style.display = 'none';
+                notifnull();
+            }
+
+
+        }
+        // check notification permission
+        const notificationPermission = new Promise((response) => {
+            if ("Notification" in window) {
+                if (Notification.permission === "granted") {
+                    response({
+                        status: "success",
+                        text: "user accepted the notifications",
+                    })
+                } else {
+                    Notification.requestPermission()
+                        .then(permission => {
+                            if (permission === "granted") {
+                                response({
+                                    status: "success",
+                                    text: "user accepted the notifications",
+                                })
+                            } else {
+                                response({
+                                    status: "error",
+                                    text: "User did not accept notifications",
+                                })
+                            }
+                        })
+                }
+            } else {
+                response({
+                    status: "error",
+                    text: "This Browser does not support desktop notification !",
+                })
+            }
+        })
+
+        let userPermission;
+        async function checkNotificationPermission() {
+            const permission = await notificationPermission;
+            if (permission.status === "success") {
+                userPermission = true;
+            } else {
+                console.warn("User did not accept notifications !");
+                userPermission = false;
+            }
+        }
+        checkNotificationPermission();
+
+        // show notification
+        let notify;
+
+        function createNotification(data) {
+            if (notify) {
+                notify.close();
+            }
+            notify = new Notification(data.title, {
+                ...data,
+            });
+            console.log(notify);
+            // window.location.reload(false);
+        }
+
+        function playSound(url) {
+            const audio = new Audio(url);
+            audio.play();
+        }
+    </script>
+    <script>
+        // theme
+        function themelight() {
+            var str = '';
+            str += '<button type="button" onclick="themedark()" class="btn header-item noti-icon waves-effect">';
+            str +=
+                '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">';
+            str +=
+                '<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>';
+            str += '</svg>';
+            str += '</button>';
+
+            document.getElementsByTagName('html')[0].removeAttribute("dir");
+            document.getElementById('bootstrap-style').href = '/assets/css/bootstrap.min.css';
+            document.getElementById('app-style').href = '/assets/css/app.min.css';
+
+
+            document.getElementById('theme').innerHTML = str;
+            sessionStorage.setItem("is_visited", "light-mode-switch");
+
+        }
+
+        function themedark() {
+            var str = '';
+            str += '<button type="button" onclick="themelight()" class="btn header-item noti-icon waves-effect">';
+            str +=
+                '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-brightness-low-fill" viewBox="0 0 16 16">';
+            str +=
+                '<path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8.5 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 11a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5-5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm-11 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9.743-4.036a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm-7.779 7.779a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707zm7.072 0a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707zM3.757 4.464a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707z"/>';
+            str += '</svg>';
+            str += '</button>';
+
+            document.getElementsByTagName('html')[0].removeAttribute("dir");
+            document.getElementById('bootstrap-style').href = '/assets/css/bootstrap-dark.min.css';
+            document.getElementById('app-style').href = '/assets/css/app-dark.min.css';
+
+            document.getElementById('theme').innerHTML = str;
+            sessionStorage.setItem("is_visited", "dark-mode-switch");
+        }
+    </script>
+    <script>
+        // theme ready
+        if (sessionStorage.getItem("is_visited") == 'dark-mode-switch') {
+            themedark()
+        } else {
+            themelight()
+        }
+    </script>
+    <script>
+        // create list
+        function createListNotif(data) {
+            // console.log(data);
+            data.sort((a, b) => b.id - a.id);
+            var html = '';
+            for (let i = 0; i < data.length; i++) {
+                var type = data[i].type;
+                if (type == 'new') {
+                    var bg_style = 'bg-info';
+                    var title = 'WO Baru';
+                } else if (type == 'aprove') {
+                    var bg_style = 'bg-primary';
+                    var title = 'WO Aproved';
+                } else if (type == 'proses') {
+                    var bg_style = 'bg-warning';
+                    var title = 'WO Dalam Proses';
+                } else if (type == 'closed') {
+                    var bg_style = 'bg-success';
+                    var title = 'WO Close';
+                } else if (type == 'reject') {
+                    var bg_style = 'bg-warning';
+                    var title = 'WO Rejected';
+                }
+
+                var pesan = JSON.parse(data[i].data);
+                var created = data[i].created_at;
+                var date = new Date(created);
+                var momen = moment(date).fromNow();
+
+                html += '<a href="" class="text-reset notification-item">';
+                html += '    <div class="d-flex align-items-start">';
+                html += '        <div class="avatar-xs me-3">';
+                html += '            <span class="avatar-title rounded-circle font-size-16 ' + bg_style + '">';
+                html += '                <img src="../assets/images/logo/logokotak.png" alt="" height="16">';
+                html += '            </span>';
+                html += '        </div>';
+                html += '        <div class="flex-1">';
+                html += '            <h6 class="mt-0 mb-1">' + title + '</h6>';
+                html += '            <div class="font-size-12 text-muted">';
+                html += '                <p class="mb-1">' + pesan.text + '</p>';
+                html += '                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> ' + momen;
+                html += '                </p>';
+                html += '            </div>';
+                html += '        </div>';
+                html += '    </div>';
+                html += '</a>';
+            }
+
+            document.getElementById('list-notif').innerHTML = html;
+        }
+    </script>
+    <script>
+        // gerak lonceng
+        const wiggletime = 100;
+
+        function rotateElement(el) {
+            el.classList.add('rotateable');
+            el.style.transform = 'rotate(20deg)';
+
+            setTimeout(function() {
+                el.style.transform = 'rotate(-20deg)';
+                setTimeout(function() {
+                    el.style.transform = 'rotate(10deg)';
+                    setTimeout(function() {
+                        el.style.transform = 'rotate(-10deg)';
+                        setTimeout(function() {
+                            el.style.transform = 'rotate(0deg)';
+                        }, wiggletime);
+                    }, wiggletime);
+                }, wiggletime);
+            }, wiggletime);
+            // console.log(el);
+            return true;
+        }
+    </script>
+@endsection

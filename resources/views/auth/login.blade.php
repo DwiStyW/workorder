@@ -34,10 +34,10 @@
                                     @csrf
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="name">User Name</label>
+                                        <label class="form-label" for="name">Username</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
                                             name="name" value="{{ old('name') }}" id="name"
-                                            placeholder="Enter User Name">
+                                            placeholder="Enter Username">
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

@@ -1,3 +1,11 @@
+import './bootstrap';
+
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+
 /*
 Template Name: Minible - Admin & Dashboard Template
 Author: Themesbrand
@@ -239,3 +247,4 @@ File: Main Js File
     init();
 
 })(jQuery)
+

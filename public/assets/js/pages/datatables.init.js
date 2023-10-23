@@ -3,7 +3,8 @@ $(document).ready(function () {
         $("#datatable-buttons")
             .DataTable({
                 lengthChange: !1,
-                buttons: ["copy", "excel", "pdf", "colvis"],
+                buttons: ["excel", "pdf", "colvis"],
+                // buttons: ["copy", "excel", "pdf", "colvis"],
             })
             .buttons()
             .container()
