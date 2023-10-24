@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Events\NotificationSent;
+use App\Events\TicketSent;
+use App\Models\Mesin;
+use App\Models\Ruang;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Repositories\NotificationRepository;
@@ -67,20 +70,23 @@ class TicketController extends Controller
                 ->where('role','user')
                 ->get();
             foreach($getPelapor as $gP){
-                $pelapor[]=[
-                    'nama'=>$gP->name
-                ];
+                if($gP->name!=$request->user()->name){
+                    $pelapor[]=[
+                        'nama'=>$gP->name
+                    ];
+                }
             }
         }else{
             $pelapor[]=[
                 'nama'=>$request->user()->name
             ];
         }
-
-        // dd($pelapor);
+        $divisi=$request->user()->divisi;
+        $mesin=Mesin::get();
+        $ruang=Ruang::get();
 
         $notif=$this->notif->getNotif((int) $request->user()->id);
-        return view('ticket.add-ticket',compact('notif',));
+        return view('ticket.add-ticket',compact('notif','nomor_tiket','tanggal','pelapor','divisi','mesin','ruang'));
     }
 
     /**
@@ -128,6 +134,8 @@ class TicketController extends Controller
             }
 
             DB::commit();
+            $next_nomor_tiket=$this->ticket->getNotiket();
+            event(new TicketSent($next_nomor_tiket));
             return back();
         } catch (Exception $e) {
             DB::rollBack();

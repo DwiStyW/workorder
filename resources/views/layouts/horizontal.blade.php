@@ -240,8 +240,6 @@
                 readall.style.display = 'none';
                 notifnull();
             }
-
-
         }
         // check notification permission
         const notificationPermission = new Promise((response) => {

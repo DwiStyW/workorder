@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/ticket/disetujui',[TicketController::class, 'index'])->name('ticket');
     Route::get('/ticket/proses',[TicketController::class, 'index'])->name('ticket');
     Route::get('/ticket/selesai',[TicketController::class, 'index'])->name('ticket');
+    Route::get('/ticket/ditutup',[TicketController::class, 'index'])->name('ticket');
     Route::get('/ticket/ditolak',[TicketController::class, 'index'])->name('ticket');
     Route::get('/ticket/add',[TicketController::class, 'create'])->name('add.ticket');
     Route::post('/ticket/post',[TicketController::class, 'store'])->name('post.ticket');

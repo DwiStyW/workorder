@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('notification.{receiver}', function ($user) {
     return !is_null($user);
 });
+Broadcast::channel('ticket', function ($user) {
+    return !is_null($user);
+});

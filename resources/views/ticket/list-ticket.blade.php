@@ -34,22 +34,29 @@
 
     <div class="row pb-3">
         <div class="col-sm-2 col-3">
-            <div class="card navbar-light h-100 pt-1">
-                <ul>
-                    <li>
-                        <a href="">Semua</a>
+            <div class="card bg-style h-100 pt-1">
+                <ul class="list-unstyled">
+                    <li class="menu-title">Filter</li>
+                    <li class="m-2 w-80">
+                        <a class="btn btn-outline-primary w-100 active" href="{{ url('ticket') }}">Semua</a>
                     </li>
-                    <li>
-                        <a href="">Baru</a>
+                    <li class="m-2 w-80">
+                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/baru') }}">Baru</a>
                     </li>
-                    <li>
-                        <a href="">Disetujui</a>
+                    <li class="m-2 w-80">
+                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/disetujui') }}">Di Setujui</a>
                     </li>
-                    <li>
-                        <a href="">Proses</a>
+                    <li class="m-2 w-80">
+                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/proses') }}">Proses</a>
                     </li>
-                    <li>
-                        <a href="">Selesai</a>
+                    <li class="m-2 w-80">
+                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/selesai') }}">Selesai</a>
+                    </li>
+                    <li class="m-2 w-80">
+                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/ditutup') }}">Di Tutup</a>
+                    </li>
+                    <li class="m-2 w-80">
+                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/ditolak') }}">Di Tolak</a>
                     </li>
                 </ul>
             </div>

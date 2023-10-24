@@ -157,10 +157,11 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{ URL::asset('/assets/js/jquery-3.6.1.min.js') }}"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.bootstrap5.min.css" />
     <script src="{{ URL::asset('/assets/js/selectize.min.js') }}"></script>
     <script>
-        console.log('test');
+        // console.log('test');
         $(document).ready(function() {
             $('.selectize').selectize();
         });
