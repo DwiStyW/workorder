@@ -97,7 +97,6 @@ class TicketController extends Controller
         $request->validate([
             'text' => 'required|string',
         ]);
-        $nomor_tiket=$this->ticket->getNotiket();
 
         $data=[
             'name'=>$request->user()->name,
@@ -140,6 +139,7 @@ class TicketController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             dd($e);
+            return back();
         }
     }
 

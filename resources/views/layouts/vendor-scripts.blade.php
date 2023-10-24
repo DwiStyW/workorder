@@ -6,10 +6,16 @@
 <script src="{{ URL::asset('/assets/libs/node-waves/node-waves.min.js') }}"></script>
 <script src="{{ URL::asset('/assets/libs/waypoints/waypoints.min.js') }}"></script>
 <script src="{{ URL::asset('/assets/libs/jquery-counterup/jquery-counterup.min.js') }}"></script>
-<script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
-{{-- <script src="{{ URL::asset('/build/assets/app-0853ea75.js') }}"></script> --}}
 <script src="{{ URL::asset('/assets/js/moment.js') }}"></script>
+<script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
+<script src="{{ URL::asset('/build/assets/app-bbacdb4c.js') }}"></script>
 
 @yield('script')
-@yield('script-bottom')
+
+@yield('script-notif')
+
+@yield('script-ticket')
+
 @yield('script-datatable')
+
+@yield('script-selectize')

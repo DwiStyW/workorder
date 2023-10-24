@@ -156,7 +156,7 @@
         transition: all 100ms;
     }
 </style>
-@section('script-bottom')
+@section('script-notif')
     <script>
         Notification.requestPermission((result) => {
             console.log(result);
@@ -212,6 +212,15 @@
                 var readall = document.getElementById('readall');
                 rotateElement(el);
                 readall.style.display = 'block';
+            });
+
+        Echo.channel(`ticket`)
+            .listen('TicketSent', (e) => {
+                if (document.getElementById('no_tiket') != undefined) {
+                    document.getElementById('no_tiket').value = e.ticket;
+                }
+
+                // console.log(e);
             });
 
         var nullnotif = document.getElementById('tidakadanotif');

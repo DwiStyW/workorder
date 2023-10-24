@@ -153,7 +153,7 @@
         transition: all 100ms;
     }
 </style>
-@section('script-bottom')
+@section('script-notif')
     <script>
         Notification.requestPermission((result) => {
             console.log(result);
