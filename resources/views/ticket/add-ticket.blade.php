@@ -2,6 +2,10 @@
 @section('title')
     @lang('Dashboard')
 @endsection
+@section('css')
+    <!-- DataTables -->
+    <link href="{{ URL::asset('/assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
 @section('content')
     @component('common-components.breadcrumb')
         @slot('pagetitle')
@@ -19,7 +23,7 @@
             z-index: 1000;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.102);
+            background-color: rgba(0, 0, 0, 0);
             backdrop-filter: blur(15px);
         }
 
@@ -54,7 +58,7 @@
         </div>
     </div>
     <div class="card bg-style p-lg-5 p-md-4 p-2 ">
-        <form action="{{ route('post.ticket') }}" method="POST" enctype="multipart/form-data">
+        <form id="data" action="{{ route('post.ticket') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 row">
                 <label for="example-text-input" class="col-md-2 col-form-label">Nomor WO</label>
@@ -135,13 +139,22 @@
                     <input type="file" name="photo" id="photo">
                 </div>
             </div>
+            {{-- <input type="text" name="text" id=""> --}}
             <div class="float-end">
-                <button type="submit" class="btn btn-success btn-sm">submit</button>
+                <button onclick="Confirm(this)" role="button" type="button"
+                    class="btn btn-success btn-sm">submit</button>
                 <input type='reset' value='Reset' id="reset" class="btn btn-danger btn-sm" />
             </div>
         </form>
     </div>
     </div>
+@endsection
+@section('script')
+    <!-- Sweet Alerts js -->
+    <script src="{{ URL::asset('/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <!-- Range slider init js-->
+    <script src="{{ URL::asset('/assets/js/pages/sweet-alerts.init.js') }}"></script>
 @endsection
 @section('script-selectize')
     <link rel="stylesheet"
@@ -206,6 +219,72 @@
             localStorage.removeItem("keterangan");
             // localStorage.removeItem("photo");
             location.reload();
+        }
+
+        function Confirm(event) {
+            var notiket = document.getElementById('no_tiket').value;
+            var tgl = document.getElementById('tanggal').value;
+            var nama = document.getElementById('pelapor').value;
+            var divisi = document.getElementById('divisi').value;
+            var mesin = document.getElementById('mesin').options;
+            var index = document.getElementById('mesin').selectedIndex;
+            var ruang = document.getElementById('ruang').options;
+            var index_r = document.getElementById('ruang').selectedIndex;
+            var kete = document.getElementById('keterangan').value;
+            if (tgl != "" && nama != "" && divisi != "" && document.getElementById('mesin').value != "" && document
+                .getElementById('ruang').value != "" && kete != "") {
+                Swal.fire({
+                    title: 'Konfirmasi!',
+                    html: '<table width=100% style=" text-align: left;">' +
+                        '<tr>' +
+                        '<td>Nomor WO</td> <td width=30px>:</td> <td class="text-right">' + notiket + '</td><tr>' +
+                        '<td>Tanggal</td> <td width=30px>:</td> <td class="text-right">' + tgl + '</td><tr>' +
+                        '<td>Pelapor</td> <td width=30px>:</td><td class="text-right"> ' + nama + '</td><tr>' +
+                        '<td>Divisi</td> <td width=30px>:</td><td class="text-right"> ' + divisi + '</td><tr>' +
+                        '<td>Mesin/Sarana</td> <td width=30px>:</td> <td class="text-right" style="overflow: hidden; max-width:20px; white-space: nowrap; text-overflow: ellipsis;">' +
+                        mesin[index].text +
+                        '</td><tr>' +
+                        '<td>ruang</td> <td width=30px>:</td> <td class="text-right" style="overflow: hidden; max-width:20px; white-space: nowrap; text-overflow: ellipsis;">' +
+                        ruang[index_r].text +
+                        '</td><tr>' +
+                        '<td>Keterangan</td> <td width=30px>:</td> <td class="text-right" style="overflow: hidden; max-width:20px; white-space: nowrap; text-overflow: ellipsis;">' +
+                        kete + '</td></tr></table>',
+                    icon: 'success',
+                    showCancelButton: true,
+                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Konfirm',
+                    confirmButtonColor: 'green',
+
+                }).then(dialog => {
+                    if (dialog.isConfirmed) {
+                        let timerInterval
+                        Swal.fire({
+                            title: 'Sedang di proses!',
+                            timerProgressBar: true,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                }, 100)
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        });
+                        localStorage.clear()
+                        document.getElementById('data').submit();
+                    }
+                })
+            } else {
+                Swal.fire(
+                    'Peringatan!',
+                    'Harap untuk Melengkapi Data!',
+                    'error'
+                )
+            }
+
         }
 
         $(document).ready(function() {

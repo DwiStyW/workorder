@@ -123,7 +123,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="#"><i
+                    <a class="dropdown-item" href="/profile"><i
                             class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span
                             class="align-middle">@lang('translation.View_Profile')</span></a>
                     <a class="dropdown-item" href="#"><i
@@ -184,14 +184,31 @@
                 if (jumlah_notif == 0) {
                     var str = '<span id="badge-notif" class="badge bg-danger rounded-pill">' + notif.length + '</span>';
                     document.getElementById('badge-notif').innerHTML = str;
+                    notifada();
                 } else {
                     document.getElementById('badge-notif').innerHTML = notif.length;
                 }
 
                 const data = JSON.parse(e.notification.data);
+                var type = e.notification.type;
+                if (type == 'new') {
+                    var bg_style = 'bg-info';
+                    var text = 'WO Baru';
+                } else if (type == 'aprove') {
+                    var bg_style = 'bg-primary';
+                    var text = 'WO Aproved';
+                } else if (type == 'proses') {
+                    var bg_style = 'bg-warning';
+                    var text = 'WO Dalam Proses';
+                } else if (type == 'closed') {
+                    var bg_style = 'bg-success';
+                    var text = 'WO Close';
+                } else if (type == 'reject') {
+                    var bg_style = 'bg-warning';
+                    var text = 'WO Rejected';
+                }
 
-
-                let title = e.notification.type || "Title";
+                let title = text + ' ' + data.no_tiket || "Title";
                 let body = data.text || "Text";
                 let icon = "http://192.168.20.28:8000/assets/images/logo/iconkotak.png";
                 let image = "";
@@ -205,7 +222,7 @@
                     dir: "auto",
                 })
 
-                var mp3 = "http://192.168.20.28:8000/assets/mp3/notif_wo.mp3";
+                var mp3 = "http://192.168.20.28:8000/assets/mp3/notif_wo2.mp3";
                 playSound(mp3);
                 createListNotif(notif);
                 var el = document.getElementById('lonceng');
@@ -219,7 +236,6 @@
                 if (document.getElementById('no_tiket') != undefined) {
                     document.getElementById('no_tiket').value = e.ticket;
                 }
-
                 // console.log(e);
             });
 
@@ -228,6 +244,11 @@
         function notifnull() {
             nullnotif.style.display = 'block'
         }
+
+        function notifada() {
+            nullnotif.style.display = 'none'
+        }
+
         //reload function every 1 second
         window.onload = function() {
             createListNotif(notif);
@@ -391,17 +412,19 @@
                 var date = new Date(created);
                 var momen = moment(date).fromNow();
 
-                html += '<a href="" class="text-reset notification-item">';
+                html += '<a href="/detail-ticket/' + data[i].id + '/' + pesan.no_tiket +
+                    '" class="text-reset notification-item">';
                 html += '    <div class="d-flex align-items-start">';
                 html += '        <div class="avatar-xs me-3">';
                 html += '            <span class="avatar-title rounded-circle font-size-16 ' + bg_style + '">';
-                html += '                <img src="../assets/images/logo/logokotak.png" alt="" height="16">';
+                html +=
+                    '                <img src="{{ URL::asset('/assets/images/logo/logokotak.png') }}" alt="" height="16">';
                 html += '            </span>';
                 html += '        </div>';
                 html += '        <div class="flex-1">';
-                html += '            <h6 class="mt-0 mb-1">' + title + '</h6>';
+                html += '            <h6 class="mt-0 mb-1">' + title + ' ' + pesan.no_tiket + '</h6>';
                 html += '            <div class="font-size-12 text-muted">';
-                html += '                <p class="mb-1">' + pesan.text + '</p>';
+                html += '                <p class="mb-1">' + truncate(pesan.text) + '</p>';
                 html += '                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> ' + momen;
                 html += '                </p>';
                 html += '            </div>';
@@ -411,6 +434,13 @@
             }
 
             document.getElementById('list-notif').innerHTML = html;
+
+            function truncate(input) {
+                if (input.length > 60) {
+                    return input.substring(0, 60) + '...';
+                }
+                return input;
+            };
         }
     </script>
     <script>

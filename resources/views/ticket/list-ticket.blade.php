@@ -16,7 +16,13 @@
             List WO
         @endslot
     @endcomponent
-
+    <style>
+        @media(max-width:991.98px) {
+            .fs {
+                font-size: 12px;
+            }
+        }
+    </style>
     <div id="preloader">
         <div id="status">
             <div class="spinner">
@@ -38,25 +44,25 @@
                 <ul class="list-unstyled">
                     <li class="menu-title">Filter</li>
                     <li class="m-2 w-80">
-                        <a class="btn btn-outline-primary w-100 active" href="{{ url('ticket') }}">Semua</a>
+                        <a class="btn btn-outline-primary w-100 active fs" href="{{ url('ticket') }}">Semua</a>
                     </li>
                     <li class="m-2 w-80">
-                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/baru') }}">Baru</a>
+                        <a class="btn btn-outline-primary w-100 fs" href="{{ url('ticket/baru') }}">Baru</a>
                     </li>
                     <li class="m-2 w-80">
-                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/disetujui') }}">Di Setujui</a>
+                        <a class="btn btn-outline-primary w-100 fs" href="{{ url('ticket/disetujui') }}">Di Setujui</a>
                     </li>
                     <li class="m-2 w-80">
-                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/proses') }}">Proses</a>
+                        <a class="btn btn-outline-primary w-100 fs" href="{{ url('ticket/proses') }}">Proses</a>
                     </li>
                     <li class="m-2 w-80">
-                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/selesai') }}">Selesai</a>
+                        <a class="btn btn-outline-primary w-100 fs" href="{{ url('ticket/selesai') }}">Selesai</a>
                     </li>
                     <li class="m-2 w-80">
-                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/ditutup') }}">Di Tutup</a>
+                        <a class="btn btn-outline-primary w-100 fs" href="{{ url('ticket/ditutup') }}">Di Tutup</a>
                     </li>
                     <li class="m-2 w-80">
-                        <a class="btn btn-outline-primary w-100" href="{{ url('ticket/ditolak') }}">Di Tolak</a>
+                        <a class="btn btn-outline-primary w-100 fs" href="{{ url('ticket/ditolak') }}">Di Tolak</a>
                     </li>
                 </ul>
             </div>

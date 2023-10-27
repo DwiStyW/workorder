@@ -15,6 +15,7 @@ class Ticket extends Model
         'divisi',
         'mesin',
         'ruang',
+        'keterangan',
         'photo',
         'status',
         'update_by',

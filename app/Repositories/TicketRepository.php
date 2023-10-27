@@ -14,8 +14,13 @@ class TicketRepository
             ->orderByDesc('id')
             ->limit(1)
             ->get();
-        foreach($queryNotiket as $qNotiket)
-        $noLm = $qNotiket->no_tiket;
+        foreach($queryNotiket as $qNotiket){}
+        if(count($queryNotiket)==0){
+            $noLm='0000000';
+        }else{
+            $noLm = $qNotiket->no_tiket;
+        }
+        // dd($noLm);
         $bln = date('m');
         $thn = date('y');
         $blnTkt = sprintf("%02s", (int) substr($noLm, 3, 2));
