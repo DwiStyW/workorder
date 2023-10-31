@@ -248,7 +248,8 @@ class TicketController extends Controller
 
     public function detail_fromticket($no_tiket){
         $notif=$this->notif->getNotif((int) Auth::user()->id);
-
+        $HistoryTime=$this->ticket->getHistoryTime($no_tiket);
+        dd($HistoryTime);
         $tiket=Ticket::where('no_tiket',$no_tiket)
             ->leftjoin('mesins','mesins.id','=','tickets.mesin')
             ->leftjoin('ruangs','ruangs.id','=','tickets.ruang')

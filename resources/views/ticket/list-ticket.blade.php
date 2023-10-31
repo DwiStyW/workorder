@@ -94,7 +94,8 @@
                         @foreach ($tiket as $t)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $t->no_tiket }}</td>
+                                <td><a href="/detail-ticket/{{ $t->no_tiket }}">{{ $t->no_tiket }}</a>
+                                </td>
                                 <td>{{ $t->pelapor }}</td>
                                 <td>{{ $t->divisi }}</td>
                                 <td>{{ $t->nama_mesin }}</td>

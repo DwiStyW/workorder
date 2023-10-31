@@ -46,13 +46,6 @@
             padding: 5px;
         }
 
-        /* @media(min-width:991.98px) {
-                                    .th_title {
-                                        width: 25% !important;
-                                        padding: 5px;
-                                    }
-                                } */
-
         .pembatas {
             max-width: 10px !important;
         }
