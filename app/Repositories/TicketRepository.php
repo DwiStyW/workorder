@@ -260,6 +260,12 @@ class TicketRepository
             }
         }
 
+        if(count($beli)!=0){
+            foreach($beli as $b){
+
+            }
+        }
+
         if($getTiket[0]['role']=='user'){
             $data=[
                 "BaruToAprove"=>$BaruToAprove,

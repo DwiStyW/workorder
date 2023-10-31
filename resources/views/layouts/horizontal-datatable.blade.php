@@ -207,7 +207,7 @@
 
                 let title = text + ' ' + data.no_tiket || "Title";
                 let body = data.text || "Text";
-                let icon = "http://192.168.20.28:8000/assets/images/logo/iconkotak.png";
+                let icon = "http://127.0.0.1:8000/assets/images/logo/iconkotak.png";
                 let image = "";
 
                 createNotification({
@@ -219,7 +219,7 @@
                     dir: "auto",
                 })
 
-                var mp3 = "http://192.168.20.28:8000/assets/mp3/notif_wo2.mp3";
+                var mp3 = "http://127.0.0.1:8000/assets/mp3/notif_wo2.mp3";
                 playSound(mp3);
                 createListNotif(notif);
                 var el = document.getElementById('lonceng');
